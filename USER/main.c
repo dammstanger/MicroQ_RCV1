@@ -104,7 +104,7 @@ int main(void)
 	sta = RCC_GetSYSCLKSource();
 	if(sta==0x08)
 		printf("used PLL as system clk.\r\n");
-	SetSoftTimer(TIMER_1,50);
+	SetSoftTimer(TIMER_1,20);
 	SetSoftTimer(TIMER_2,20);
 	while(1)
 	{	
@@ -121,7 +121,8 @@ int main(void)
 				LED1(OFF);
 			}
 			Send_2401RC_Pkg(RC_dat);
-			SetSoftTimer(TIMER_1,50);
+			SetSoftTimer(TIMER_1,20);
+			printf("send data: %d,%d,%d,%d.\r\n",p_ADCval[0],p_ADCval[1],p_ADCval[2],p_ADCval[3]);
 		}
 		if(ReadSoftTimer(TIMER_2))
 		{
@@ -129,7 +130,7 @@ int main(void)
 			SetSoftTimer(TIMER_2,20);
 		}
 //		Delay(0x0003ffff);
-//		printf("send data: %d,%d.\r\n",123,456);
+	
 //		Send_2401Dug_Pkg(0xff,p_ADCval[0],p_ADCval[1],p_ADCval[2],p_ADCval[3]);
 
 	}

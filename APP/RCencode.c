@@ -88,10 +88,16 @@ u8 RC_Adc_Calib(u16 *pval)
  ********************************************************************************/
 void RC_Adc_to_RCdat(u16 *pval)
 {
-	RC_dat.ROLL= 1500 + (((s16)adc_orig.ROLL-(s16)pval[ADC_ROLL])/ratio_adc_RC.ROLL);
-	RC_dat.PITCH= 1500 + (((s16)adc_orig.PITCH-(s16)pval[ADC_PITCH])/ratio_adc_RC.PITCH);
-	RC_dat.THROTTLE= 1000 + (((s16)adc_orig.THROTTLE-(s16)pval[ADC_THRO])/ratio_adc_RC.THROTTLE);
-	RC_dat.YAW= 1500 + (((s16)pval[ADC_YAW]-(s16)adc_orig.YAW)/ratio_adc_RC.YAW);
+	static u16 datlast[4] ={0};
+	if(pval[ADC_ROLL]<4095)	datlast[ADC_ROLL] = pval[ADC_ROLL];			//去除异常值，保留上一次的值
+	if(pval[ADC_ROLL]<4095)	datlast[ADC_PITCH] = pval[ADC_PITCH];			
+	if(pval[ADC_ROLL]<4095)	datlast[ADC_THRO] = pval[ADC_THRO];			
+	if(pval[ADC_ROLL]<4095)	datlast[ADC_YAW] = pval[ADC_YAW];			
+	
+	RC_dat.ROLL= 1500 + (((s16)adc_orig.ROLL-(s16)datlast[ADC_ROLL])/ratio_adc_RC.ROLL);
+	RC_dat.PITCH= 1500 + (((s16)adc_orig.PITCH-(s16)datlast[ADC_PITCH])/ratio_adc_RC.PITCH);
+	RC_dat.THROTTLE= 1000 + (((s16)adc_orig.THROTTLE-(s16)datlast[ADC_THRO])/ratio_adc_RC.THROTTLE);
+	RC_dat.YAW= 1500 + (((s16)datlast[ADC_YAW]-(s16)adc_orig.YAW)/ratio_adc_RC.YAW);
 }
 
 
