@@ -90,7 +90,7 @@ void RC_Adc_to_RCdat(u16 *pval)
 {
 	static u16 datlast[4] ={0};
 	if(pval[ADC_ROLL]<4095)	datlast[ADC_ROLL] = pval[ADC_ROLL];			//去除异常值，保留上一次的值
-	if(pval[ADC_PITCH]<4095)	datlast[ADC_PITCH] = pval[ADC_PITCH];			
+	if(pval[ADC_PITCH]<4095) datlast[ADC_PITCH] = pval[ADC_PITCH];			
 	if(pval[ADC_THRO]<4095)	datlast[ADC_THRO] = pval[ADC_THRO];			
 	if(pval[ADC_YAW]<4095)	datlast[ADC_YAW] = pval[ADC_YAW];			
 	
@@ -99,7 +99,6 @@ void RC_Adc_to_RCdat(u16 *pval)
 	RC_dat.THROTTLE= 1000 + (((s16)adc_orig.THROTTLE-(s16)datlast[ADC_THRO])/ratio_adc_RC.THROTTLE);
 	RC_dat.YAW= 1500 + (((s16)datlast[ADC_YAW]-(s16)adc_orig.YAW)/ratio_adc_RC.YAW);
 }
-
 
 void RC_RCdat_pkg(u16 *pval)
 {

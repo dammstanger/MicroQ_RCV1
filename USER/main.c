@@ -28,6 +28,7 @@
 #include "adc.h"
 #include "key.h"
 #include "Timer.h"
+#include "flash.h"
 /****************************宏定义***********************************************/
 
 /****************************变量声明*********************************************/
@@ -35,7 +36,11 @@
 /****************************变量定义*********************************************/
 
 /****************************函数声明*********************************************/
-
+typedef enum {
+	NORMAL=0,
+	RC_CALIB,
+	DIV_PAIR
+}SYSMODE;
 
 
 /********************************************************************************
@@ -95,15 +100,23 @@ int main(void)
 {
 	/* config the sysclock to 72M */    
 	u8 flg=0;	
-	u8 sta;
+	u8 size;
 
 	SystemInit();
 	BSP_Init();
 	SysTick_Init();
 
-	sta = RCC_GetSYSCLKSource();
-	if(sta==0x08)
-		printf("used PLL as system clk.\r\n");
+	size = sizeof("STM32 yyyyyyyyxiaodeng");
+
+	printf("\r\n Start Write FLASH....\r\n");
+	STMFLASH_Write(FLASH_SAVE_ADDR,(u16*)"STM32 yyyyyyyyxiaodeng",size);
+	printf("\r\n FLASH Write Finished! \r\n");
+	Delay(0x000ff000);
+	printf("\r\n Start Read Flash.... \r\n");
+	STMFLASH_Read(FLASH_SAVE_ADDR,(u16*)FlashRbuf,FLASH_BUF_SIZE);
+	printf("%s\r\n",FlashRbuf);
+	printf("\r\n  FLASH Read Finished! \r\n");
+	
 	SetSoftTimer(TIMER_1,20);
 	SetSoftTimer(TIMER_2,20);
 	while(1)
@@ -135,5 +148,17 @@ int main(void)
 
 	}
 
+}
+
+
+SYSMODE Mode_Set(u8 k_mode,u8 k_func,)
+{
+	
+}
+
+
+void task_manager()
+{
+	
 }
 

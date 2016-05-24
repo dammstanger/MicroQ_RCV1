@@ -38,7 +38,7 @@ void SysTick_Init(void)
   }
 }
 
-
+//不要在中断或操作系统中使用，会导致延时混乱
 void Delay_ms(__IO u32 nTime)
 { 
 	TimingDelay = nTime;

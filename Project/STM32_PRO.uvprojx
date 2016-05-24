@@ -365,7 +365,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER, STM32F10X_HD</Define>
               <Undefine></Undefine>
-              <IncludePath>..\APP;..\BSP;..\CMSIS;..\FWlib\inc;..\FWlib\src;..\USER;..\Startup;..\HW</IncludePath>
+              <IncludePath>..\APP;..\BSP;..\CMSIS;..\FWlib\inc;..\FWlib\src;..\USER;..\Startup;..\HW;..\BSP\STMFLASH</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -523,6 +523,11 @@
               <FileType>1</FileType>
               <FilePath>..\BSP\adc.c</FilePath>
             </File>
+            <File>
+              <FileName>stmflash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP\STMFLASH\stmflash.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -562,6 +567,11 @@
               <FileName>Timer.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\APP\Timer.c</FilePath>
+            </File>
+            <File>
+              <FileName>flash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\APP\flash.c</FilePath>
             </File>
           </Files>
         </Group>
