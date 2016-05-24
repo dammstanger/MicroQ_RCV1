@@ -81,7 +81,7 @@ u8 RC_Adc_Calib(u16 *pval)
 
 /********************************************************************************
  * 函数名：RC_Adc_to_RCdat()
- * 描述  ：ADC通道值到RC通道的转化
+ * 描述  ：ADC通道值到RC通道的转换，将0-4095 转换到1000-2000
  * 输入  ：-		    	
  * 返回  ：-
  * 调用  ：外部
@@ -90,9 +90,9 @@ void RC_Adc_to_RCdat(u16 *pval)
 {
 	static u16 datlast[4] ={0};
 	if(pval[ADC_ROLL]<4095)	datlast[ADC_ROLL] = pval[ADC_ROLL];			//去除异常值，保留上一次的值
-	if(pval[ADC_ROLL]<4095)	datlast[ADC_PITCH] = pval[ADC_PITCH];			
-	if(pval[ADC_ROLL]<4095)	datlast[ADC_THRO] = pval[ADC_THRO];			
-	if(pval[ADC_ROLL]<4095)	datlast[ADC_YAW] = pval[ADC_YAW];			
+	if(pval[ADC_PITCH]<4095)	datlast[ADC_PITCH] = pval[ADC_PITCH];			
+	if(pval[ADC_THRO]<4095)	datlast[ADC_THRO] = pval[ADC_THRO];			
+	if(pval[ADC_YAW]<4095)	datlast[ADC_YAW] = pval[ADC_YAW];			
 	
 	RC_dat.ROLL= 1500 + (((s16)adc_orig.ROLL-(s16)datlast[ADC_ROLL])/ratio_adc_RC.ROLL);
 	RC_dat.PITCH= 1500 + (((s16)adc_orig.PITCH-(s16)datlast[ADC_PITCH])/ratio_adc_RC.PITCH);
