@@ -102,7 +102,7 @@ void EXTI_PA11_24L01_Init()
 	NVIC_InitStructure.NVIC_IRQChannel = EXTI15_10_IRQn;				//使能IRQ所在的外部中断通道
 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;			//抢占优先级0 
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3;					//子优先级3
-	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;								//使能外部中断通道
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;						//使能外部中断通道
 	NVIC_Init(&NVIC_InitStructure); 	
 
 }
@@ -112,6 +112,7 @@ void EXTI_PA11_24L01_Init()
 void EXTI15_10_IRQHandler(void)
 {	
 	NRF24L01_IRQ_Handle();	
+	
 	EXTI_ClearITPendingBit(EXTI_Line11); //清除LINE11上的中断标志位  
 }
 

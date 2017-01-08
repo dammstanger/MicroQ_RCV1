@@ -24,6 +24,20 @@
 //#include "Project_cfg.h"
 /****************************宏定义***********************************************/
 
+//KEY FUNC 
+#define RC_KEY_MODE_OFF		1000
+#define RC_KEY_MODE_ON		2000
+#define RC_KEY_FUNC_NONE	1000
+#define RC_KEY_FUNC_1		1100
+#define RC_KEY_FUNC_2		1200
+#define RC_KEY_FUNC_CALI	1500
+#define RC_KEY_FUNC_DIVPAIR	2000
+
+#define RC_CALIB_ORIN		3			//摇杆初始位置采集
+#define RC_CALIB_RANGE		2			//最大最小值及比例系数
+#define RC_CALIB_DONE		1			//校准完成标志
+#define RC_CALIB_RDY		0			//校准准备好
+#define RC_NEED_CALIB		0xff		//校准未完成
 /****************************类型定义*********************************************/
 typedef struct 
 {
@@ -44,13 +58,25 @@ typedef struct
 	float MODE;
 	float FUNC;
 }RC_DATA_f;
+
+typedef union 
+{
+	RC_DATA_f RC_AD_ratio_f;
+	u16 RC_AD_ratio_chr[12];
+}RC_AD_RATIO;
+
 /****************************变量声明*********************************************/
 extern RC_DATA RC_dat;
 extern __IO u16 *p_ADCval;
+extern RC_AD_RATIO RC_AD_ratio;
+extern u8 RC_Calibr_sta;
+extern u16 RC_key_mod ;
+extern u16 RC_key_func;
 /****************************变量定义*********************************************/
 
 /****************************函数声明*********************************************/
 u8 RC_Adc_Calib(u16 *pval);
 void RC_RCdat_pkg(u16 *pval);
+void RC_Para_LoadandCheck(void);
 #endif
 /******************* (C) COPYRIGHT 2015 DammStanger *****END OF FILE************/

@@ -45,8 +45,8 @@ void Send_2401Dug_Pkg(u8 datype,int dat1,int dat2,int dat3,int dat4)//发送数据包
 	BUF_T[8] = (u8)(i&0xff);
 	BUF_T[9] = 0xaa;
 	
-	NRF24L01_Tx();					
-	NRF24L01_TxPacket(BUF_T,10);
+//	NRF24L01_Tx();					
+	NRF24L01_TxPacket(BUF_T,32);
 //	NRF24L01_Rx();	
 }
 
@@ -68,7 +68,7 @@ void Send_2401RC_Pkg(RC_DATA rcdat)
 	BUF_T[12] = (u8)rcdat.FUNC;
 	BUF_T[13] = rcdat.FUNC>>8;
 	
-	NRF24L01_Tx();					
+//	NRF24L01_Tx();					
 	NRF24L01_TxPacket(BUF_T,32);
 //	NRF24L01_Rx();
 }	

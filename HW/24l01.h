@@ -44,6 +44,10 @@
 #define FLUSH_TX        0xE1 	// 冲洗发送 FIFO指令
 #define FLUSH_RX        0xE2  	// 冲洗接收 FIFO指令
 #define REUSE_TX_PL     0xE3  	// 定义重复装载数据指令
+//24L01+
+#define R_RX_PL_WITD	0x60
+#define W_ACK_PAYLOAD	0xA8	//写有效数据到ACK包中,用在RX模式中
+#define W_TX_PAYLOAD_NOACK	0xB0//在指定包中禁止自动应答
 #define NOP             0xFF  	// 保留
 
 
@@ -75,13 +79,15 @@
 #define RX_PW_P5        0x16  // 接收频道5接收数据长度
 #define FIFO_STATUS     0x17  // FIFO栈入栈出状态寄存器设置
 
-
+#define DYNPD			0x1c  //使能动态有效数据长度
+#define FEATURE			0x1d  //功能寄存器
 /*********************************************************************************************************
 	常量宏定义--NRF24L01操作
 *********************************************************************************************************/
 #define RX_DR			6		//中断标志
 #define TX_DS			5
 #define MAX_RT			4
+#define TX_FIFO_FULL	0x01	//发送FIFO满
 #define MAX_TX  		0x10  //达到最大发送次数中断
 #define TX_OK   		0x20  //TX发送完成中断
 #define RX_OK   		0x40  //接收到数据中断
@@ -91,7 +97,7 @@
 #define MODEL_RX2		3			//接收模式2,用于双向传输
 #define MODEL_TX2		4			//发送模式2,用于双向传输
 
-#define RX_PLOAD_WIDTH  32  	
+#define RX_PLOAD_WIDTH  0  	
 #define TX_PLOAD_WIDTH  32 
 #define TX_ADR_WIDTH    5 	 	
 #define RX_ADR_WIDTH    5   	
@@ -103,7 +109,7 @@
 //extern 	u8 	NRF24L01_RXDATA[RX_PLOAD_WIDTH];		//nrf24l01接收到的数据
 //extern 	u8 	NRF24L01_TXDATA[TX_PLOAD_WIDTH];		//nrf24l01需要发送的数据
 
-
+extern u8 Sendoff;
 /*********************************************************************************************************
 	申明需要使用的外部函数
 *********************************************************************************************************/
