@@ -38,6 +38,7 @@
 #屏蔽整个文件夹target写法：target/
 #只忽略特定文件：文件名.类型
 *.uvgui.DammStangerTS
+*.uvguix.Administrator
 *.uvopt
 #*.uvproj
 *.docx
